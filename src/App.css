@@ -13,16 +13,85 @@
 }
 
 @media (max-width: 600px) {
-  .movie-card {
-    width: 100%;
+   .search-bar input {
+    padding: 10px;
+    text-align: center;
+    width: 200px;
   }
 
-  .search-bar {
-    flex-direction: column;
-    gap: 10px;
+  .search-bar button {
+    padding: 10px 5px;
+    font-size: 16px;
+    margin-left: 10px;
+    cursor: pointer;
   }
+}
+.movie-grid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  max-width: 100%;
+  gap: 1.5rem;
+  padding: 1rem;
+  justify-content: center;
+}
+.movie-card {
+  position: relative;
+  border: 1px solid #dddd;
+  max-width: 20%;
+  border-radius: 10px;
+  background-color: #fff;
+  padding: 0.5rem;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+.movie-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
 
-  .search-bar form {
-    flex-direction: column;
-  }
+button {
+  justify-content: center;
+}
+
+header {
+  background-color: #1c1c1c;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.banner {
+  padding: 20px;
+  text-align: center;
+}
+
+.controls select {
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.controls label {
+  font-weight: bold;
+}
+
+.Sidebar {
+  width: 250px;
+  background-color: #f4f4f4;
+  padding: 1rem;
+  margin-right: 1rem;
+  border-radius: 10px;
+  height: fit-content;
+}
+.app-footer{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.app-footer h1 {
+  margin: 0;
 }

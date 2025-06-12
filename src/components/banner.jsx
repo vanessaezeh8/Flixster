@@ -6,10 +6,12 @@ function Banner ({}) {
             <div className="search-bar">
                 <input 
                 type="text" 
+                value={searchTerm}
+                onChange={handleSearchChange}
                 placeholder="Search for a movie"
                 />
-                <button>Search</button>
-                <button>Clear</button>
+                <button onClick={handleSearchClick}>Search</button>
+                <button onClick={handleClearClick}>Clear</button>
             </div>
         </section>
     );
