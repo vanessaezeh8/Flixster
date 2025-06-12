@@ -1,6 +1,6 @@
 import React from "react";
 
-function Banner ({}) {
+function Banner ({searchTerm, handleSearchChange, handleSearchClick, handleClearClick}) {
     return (
         <section className="banner">
             <div className="search-bar">
@@ -17,4 +17,4 @@ function Banner ({}) {
     );
 }
 
-export default Banner;
+export default Banner
