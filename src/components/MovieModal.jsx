@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 
 function MovieModal({ movie, onClose }) {
   const [details, setDetails] = useState(null);
+  const [trailerKey, setTrailerKey] = useState(null);
   useEffect(() => {
     const apiKeyToUse = import.meta.env.VITE_APP_API_KEY;
+
     const fetchDetails = async () => {
       try {
         const res = await fetch(
@@ -17,8 +19,24 @@ function MovieModal({ movie, onClose }) {
         );
         const data = await res.json();
         setDetails(data);
+        const videoRes = await fetch(
+          `https://api.themoviedb.org/3/movie/${movie.id}/videos?language=en-US`,
+          {
+            headers: {
+              accept: "application/json",
+              Authorization: `Bearer ${apiKeyToUse}`,
+            },
+          }
+        );
+        const videoData = await videoRes.json();
+        const youtubeTrailer = videoData.results.find((video) => {
+          return video.type === "Trailer" && video.site === "YouTube";
+        });
+        if (youtubeTrailer) {
+          setTrailerKey(youtubeTrailer.key);
+        }
       } catch (err) {
-        console.error("Failed to fetch movie details", err);
+        console.error("Failed to fetch movie details or trailer", err);
       }
     };
     fetchDetails();
@@ -43,19 +61,36 @@ function MovieModal({ movie, onClose }) {
             </p>
             <p>
               <strong>Genres: </strong>
-              {details.genres.map((g) => g.name).join(",")}
+              {details.genres.map((g) => g.name).join(" , ")}
             </p>
             <p>
               <strong>Release Date: </strong>
               {details.release_date}
             </p>
             <p>
-              <strong>Overview:</strong>
+              <strong>Overview: </strong>
               {details.overview}
             </p>
+            <div>
+              {trailerKey && (
+                <div className="trailer-container">
+                  <h3> Offical Trailer</h3>
+                  <iframe
+                    className="Trailer"
+                    frameborder="0"
+                    wdith="100%"
+                    height="415"
+                    src={`https://www.youtube.com/embed/${trailerKey}`}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"
+                    allowfullscreen
+                    title={trailerKey.className}
+                  ></iframe>
+                </div>
+              )}
+            </div>
           </>
         ) : (
-          <p>Loading ...</p>
+          <p>Loading Movie details...</p>
         )}
       </div>
     </div>
