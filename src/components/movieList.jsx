@@ -109,8 +109,8 @@ function MovieList({ searchTerm, mode, loadMoreCount, setLoadMoreCount }) {
             <option value="vote">Vote Average(High-Low)</option>
           </select>
         </div>
-        <div>
-          <button onClick={() => setViewMode("all")}>All</button>
+        <div className="control-buttons">
+          <button onClick={() => setViewMode("all")} >All</button>
           <button onClick={() => setViewMode("favorites")}>Favorites</button>
           <button onClick={() => setViewMode("watched")}>Watched</button>
         </div>
@@ -133,7 +133,7 @@ function MovieList({ searchTerm, mode, loadMoreCount, setLoadMoreCount }) {
         </div>
       </div>
       <div style={{ textAlign: "center", marginTop: "1rem" }}>
-        <button
+        <button className="loadmore-btn"
           onClick={() => {
             setLoadMoreCount(loadMoreCount + 1);
           }}

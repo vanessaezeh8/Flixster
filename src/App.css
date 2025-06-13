@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  background-color: #ffc0cb;
 }
 
 .App-header {
@@ -12,6 +13,31 @@
   padding: 20px;
 }
 
+main{
+  padding: 2%;
+}
+.search-bar input {
+  padding: 10px;
+  text-align: center;
+  width: 200px;
+}
+
+  .search-bar button {
+    padding: 0.5rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    background-color: #e6adb7;
+    outline: none;
+    margin-right: 10px;
+    margin-left: 10px;
+
+  }
+  .search-bar button:hover{
+    box-shadow: #febbc6;
+    background-color: #ffc0cb;
+
+  }
 @media (max-width: 600px) {
   .search-bar input {
     padding: 10px;
@@ -32,23 +58,24 @@
   flex-wrap: wrap;
   max-width: 100%;
   gap: 1.5rem;
-  padding: 1rem;
   justify-content: center;
 }
 .movie-card {
   position: relative;
   border: 1px solid #dddd;
-  max-width: 20%;
+  max-width: 12%;
   border-radius: 10px;
-  background-color: #fff;
+  background-image: linear-gradient(#ffc0cb, #ccccff);
   padding: 0.5rem;
-  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
+  overflow: hidden;
 }
+
 .movie-card img {
   width: 100%;
   height: auto;
-  border-radius: 4px;
+  border-radius: 8px;
 }
 
 button {
@@ -56,8 +83,8 @@ button {
 }
 
 header {
-  background-color: #1c1c1c;
-  color: white;
+  background-color: #ffc0cb;
+  color: #000000;
   padding: 20px;
   text-align: center;
   font-size: 2rem;
@@ -77,11 +104,12 @@ header {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.7);
+  background: lch(0% 0 0 / 0.7);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
+
 }
 
 .close-button {
@@ -91,19 +119,25 @@ header {
   font-size: 1.5rem;
   font-weight: bold;
   cursor: pointer;
-  background: transparent;
   border: none;
+  color: #000;
+}
+.close-button:hover{
+  color: #282c34
+
 }
 
 .modal-content {
-  background: white;
+  background: #e6adb7;
   padding: 2rem;
-  border-radius: 12px;
   width: 90%;
   max-width: 600px;
   max-height: 90vh;
   overflow-y: auto;
   position: relative;
+  border-radius: 20px;
+  box-sizing: border-box;
+  box-shadow: #282c34;
 }
 .controls {
   display: flex;
@@ -113,6 +147,19 @@ header {
   gap: 1rem;
   margin-bottom: 1.5rem;
 }
+
+.control-buttons{
+  padding: 0.5rem;
+  border-radius: 5px;
+  font-size: 1rem;
+  background-color: #e6adb7;
+  outline: none;
+  margin-right: 10px;
+  margin-left: 10px;
+  gap: 1rem;
+  border-radius: 8px;
+}
+
 .controls select {
   padding: 0.5rem;
   border-radius: 5px;
@@ -153,4 +200,19 @@ header {
   height: 315px;
   border: none;
   border-radius: 8px;
+}
+
+.loadmore-btn{
+  padding: 0.5rem;
+  border-radius: 5px;
+  font-size: 1rem;
+  background-color: #e6adb7;
+  outline: none;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.loadmore-btn:hover {
+  color: black;
+  background-color: #febbc6;
 }
