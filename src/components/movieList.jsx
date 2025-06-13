@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import MovieCard from "./movieCard";
 import MovieModal from "./MovieModal";
-import Sidebar from "./sidebar";
 
 function MovieList({ searchTerm, mode, loadMoreCount, setLoadMoreCount }) {
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [sortOption, setSortOption] = useState("default");
-  const [genre, setGenre] = useState("all");
   const [favorites, setFavorites] = useState([]);
   const [watched, setWatched] = useState([]);
+  const [viewMode, setViewMode] = useState("all");
+
   const callMovieApi = async (url) => {
     const apiKeyToUse = import.meta.env.VITE_APP_API_KEY;
     const options = {
@@ -22,7 +22,6 @@ function MovieList({ searchTerm, mode, loadMoreCount, setLoadMoreCount }) {
     fetch(url, options)
       .then((res) => res.json())
       .then((json) => {
-        console.log(json);
         if (loadMoreCount === 1) {
           setMovies([...json.results]);
         } else {
@@ -57,34 +56,35 @@ function MovieList({ searchTerm, mode, loadMoreCount, setLoadMoreCount }) {
       setMovies([]);
     }
     callMovieApi(url);
-  }, [mode, loadMoreCount]);
-  const genreFilteredMovies =
-    genre === "all"
-      ? movies
-      : movies.filter((movie) =>
-          movie.genre_ids ? movie.genre_ids.includes(Number(genre)) : true
-        );
-  const filteredMovies = [...genreFilteredMovies].sort((a, b) => {
+  }, [searchTerm, mode, loadMoreCount]);
+
+  const sortedMovie = [...movies].sort((a, b) => {
     if (sortOption === "title") return a.title.localeCompare(b.title);
     if (sortOption === "release_date")
       return new Date(b.release_date) - new Date(a.release_date);
     if (sortOption === "vote") return b.vote_average - a.vote_average;
     return 0;
   });
+
   const toggleFavorite = (id) => {
-    setFavorites((prevFavorites) =>
-      prevFavorites.includes(id)
-        ? prevFavorites.filter((favId) => favId !== id)
-        : [...prevFavorites, id]
+    setFavorites((prev) =>
+      prev.includes(id) ? prev.filter((fid) => fid !== id) : [...prev, id]
     );
   };
-  const toggleWatched = (id) =>{
-    setWatched((prevWatched) =>
-      prevWatched.includes(id)
-      ? prevWatched.filter((watchedId) => watchedId !== id)
-      : [...prevWatched, id]
+
+  const toggleWatched = (id) => {
+    setWatched((prev) =>
+      prev.includes(id) ? prev.filter((wid) => wid !== id) : [...prev, id]
     );
   };
+
+  const filteredMovies =
+    viewMode === "favorites"
+      ? sortedMovie.filter((m) => favorites.includes(m.id))
+      : viewMode == "watched"
+      ? sortedMovie.filter((m) => watched.includes(m.id))
+      : sortedMovie;
+
   return (
     <main>
       <div
@@ -93,7 +93,7 @@ function MovieList({ searchTerm, mode, loadMoreCount, setLoadMoreCount }) {
           display: "flex",
           justifyContent: "center",
           gap: "1rem",
-          marginBottom: "1.5rem",
+          marginBottom: "1rem",
         }}
       >
         <div>
@@ -110,37 +110,26 @@ function MovieList({ searchTerm, mode, loadMoreCount, setLoadMoreCount }) {
           </select>
         </div>
         <div>
-          <label htmlFor="genre">Filter by Genre: </label>
-          <select
-            id="genre"
-            value={genre}
-            onChange={(e) => setGenre(e.target.value)}
-          >
-            <option value="all">All</option>
-            <option value="28">Action</option>
-            <option value="35">Comedy</option>
-            <option value="18">Drama</option>
-            <option value="27">Horror</option>
-            <option value="10749">Romance</option>
-          </select>
+          <button onClick={() => setViewMode("all")}>All</button>
+          <button onClick={() => setViewMode("favorites")}>Favorites</button>
+          <button onClick={() => setViewMode("watched")}>Watched</button>
         </div>
       </div>
-      <div style = {{display: "flex"}}>
-        <Sidebar favorites = {favorites} watched={watched} allMovies={movies}/>
-        <div className="movie-grid" style={{flex:1}}>
-        {movies.map((movie) => (
-          <MovieCard
-            key={movie.id}
-            title={movie.title}
-            posterPath={movie.poster_path}
-            voteAverage={movie.vote_average}
-            onClick={() => setSelectedMovie(movie)}
-            isFavorite = {favorites.includes(movie.id)}
-            isWatched = {watched.includes(movie.id)}
-            onToggleFavorite={() => toggleFavorite(movie.id)}
-            onToggleWatched ={() => toggleWatched(movie.id)}
-          />
-        ))}
+      <div>
+        <div className="movie-grid" style={{ flex: 1 }}>
+          {filteredMovies.map((movie) => (
+            <MovieCard
+              key={movie.id}
+              title={movie.title}
+              posterPath={movie.poster_path}
+              voteAverage={movie.vote_average}
+              onClick={() => setSelectedMovie(movie)}
+              isFavorite={favorites.includes(movie.id)}
+              isWatched={watched.includes(movie.id)}
+              onToggleFavorite={() => toggleFavorite(movie.id)}
+              onToggleWatched={() => toggleWatched(movie.id)}
+            />
+          ))}
         </div>
       </div>
       <div style={{ textAlign: "center", marginTop: "1rem" }}>
