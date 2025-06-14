@@ -99,11 +99,7 @@ Deployed Application (**required**): [Flixster Deployed Site](https://flixster-p
   - [✅] The Watched page displays all watched movies in a grid view.
 
 ### Walkthrough Video
-
-<div style="position: relative; padding-bottom: 55.41666666666667%; height: 0;">
-  <iframe src="https://www.loom.com/embed/44cd8d0c9e2c417f8917539bc73fe67e?sid=cd67d9aa-4320-4e9f-861a-e58262a9fe4d" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-  </iframe></div>
-
+https://www.loom.com/share/44cd8d0c9e2c417f8917539bc73fe67e?sid=ce226e22-dbc0-48aa-b852-83b0758d2455
 ### Reflection
 
 * Did the topics discussed in your labs prepare you to complete the assignment? Be specific, which features in your weekly assignment did you feel unprepared to complete?
